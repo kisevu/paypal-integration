@@ -3,3 +3,9 @@ server:
 spring:
   application:
     name: paypal-integration
+
+paypal:
+  client-id: AUJeGD4ZWjeUU2Le0MD2r1zICSKtQgIwdm7i6TQ7kbTdkhQoVNobr74xrJ4TJswaIKK7-kF6sbH5-DaZ
+  client-secret: EBMgWnc1SX-T5hVpQNOHb2ZTw_R3EOWXy8ohhKE4OTLqHwVSMnihhGPOwjg0wh5zZvfdKpTgFl5GL9q2
+  mode: sandbox
+#  sandbox for testing and live for prod
