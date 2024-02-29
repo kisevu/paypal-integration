@@ -1,0 +1,5 @@
+server:
+  port: 4500
+spring:
+  application:
+    name: paypal-integration
