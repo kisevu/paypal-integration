@@ -29,12 +29,17 @@ public class PaypalController {
         return "index";
     }
     @PostMapping("/payment/create")
-    public RedirectView createPayment(){
+    public RedirectView createPayment(
+            @RequestParam("method") String method,
+            @RequestParam("amount") String amount,
+            @RequestParam("currency") String currency,
+            @RequestParam("description") String description
+    ){
         try{
             String cancelUrl = "https://localhost:4500/payment/cancel";
             String successUrl ="https://localhost:4500/payment/success";
             Payment payment = paypalService
-                    .createPayment(10.0,"USD","paypal","sale","course payment",cancelUrl,successUrl);
+                    .createPayment(Double.valueOf(amount),currency,method,"sale",description,cancelUrl,successUrl);
             for(Links links: payment.getLinks()){
                 if(links.getRel().equals("approval_url")){
                     return new RedirectView(links.getHref());
@@ -48,7 +53,7 @@ public class PaypalController {
 
     //happy case
     @GetMapping("/payment/success")
-    public String paymentSucccess(@RequestParam("paymentId") String paymentId,@RequestParam("payerId") String payerId){
+    public String paymentSucccess(@RequestParam("paymentId") String paymentId,@RequestParam("payerID") String payerId){
         try{
             Payment payment = paypalService.executePayment(paymentId,payerId);
             if(payment.getState().equals("approved")){
